@@ -1,0 +1,16 @@
+micronaut:
+  application:
+    name: phantomapi
+  serialization:
+    date-format: "yyyy-MM-dd'T'HH:mm:ss"
+    time-zone: UTC
+netty:
+  default:
+    allocator:
+      max-order: 3
+#datasources:
+#  default:
+#    url: "${JDBC_URL:}"
+#    username: "${JDBC_USER:}"
+#    password: "${JDBC_PASSWORD:}"
+#    driverClassName: "${JDBC_DRIVER:}"

@@ -9,10 +9,9 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 
 import io.apicurio.datamodels.Library;
-import io.apicurio.datamodels.models.Document;
-import io.apicurio.datamodels.models.openapi.OpenApiPathItem;
-import io.apicurio.datamodels.models.openapi.OpenApiPaths;
 import io.apicurio.datamodels.models.openapi.v31.OpenApi31Document;
+import io.apicurio.datamodels.models.openapi.v31.OpenApi31Response;
+import io.apicurio.datamodels.models.openapi.v31.OpenApi31Schema;
 
 public class Hello {
 
@@ -54,6 +53,7 @@ public class Hello {
             "    schemas:\n" +
             "        User:\n" +
             "            type: object\n" +
+            "            description: Hello Schema Description!\n" +
             "            required: [id, name]\n" +
             "            properties:\n" +
             "                id:\n" +
@@ -72,7 +72,9 @@ public class Hello {
         OpenApi31Document document = (OpenApi31Document) Library.readDocument(descriptionJsonNode);
         System.out.println(document.getClass());
         System.out.println(document.getInfo().getDescription());
-        System.out.println(document.getPaths().getItem("/users/{id}").getGet().getResponses().getItem("200").modelId());
+        OpenApi31Response response = (OpenApi31Response) document.getPaths().getItem("/users/{id}").getGet().getResponses().getItem("200");
+        OpenApi31Schema schema = (OpenApi31Schema) response.getContent().get("application/json").getSchema();
+        System.out.println(document.getComponents().getSchemas().get(schema.get$ref()));
     }
 
 }

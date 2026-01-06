@@ -1,27 +1,72 @@
 plugins {
-    id 'java-library'
-    id 'application'
+    id 'io.micronaut.application' version "4.5.4"
+    id 'com.gradleup.shadow' version "8.3.7"
+    id 'io.micronaut.aot' version "4.5.4"
 }
 
-description = 'PhantomAPI standalone app'
+description = "PhantomAPI server"
 
-def serverMainClass = 'hu.webarticum.phantomapi.app.launch.PhantomapiServerMain'
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+
+configurations {
+    demoRuntime
+}
 
 dependencies {
+    annotationProcessor 'io.micronaut:micronaut-http-validation'
+    annotationProcessor 'io.micronaut.serde:micronaut-serde-processor'
+
+    implementation 'hu.webarticum.holodb:jpa-annotations:0.7.2-SNAPSHOT'
+
     implementation project(':core')
+    implementation 'io.micronaut.serde:micronaut-serde-jackson'
+    implementation 'jakarta.annotation:jakarta.annotation-api'
+    implementation 'io.micronaut.data:micronaut-data-hibernate-jpa'
+    implementation 'io.micronaut.sql:micronaut-jdbc-hikari'
 
-    implementation 'info.picocli:picocli:4.7.7'
-    implementation 'org.slf4j:slf4j-api:2.0.17'
+    compileOnly 'io.micronaut:micronaut-http-client'
 
-    runtimeOnly 'org.apache.logging.log4j:log4j-core:2.25.1'
-    runtimeOnly 'org.apache.logging.log4j:log4j-slf4j2-impl:2.25.1'
+    runtimeOnly 'ch.qos.logback:logback-classic'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api'
+    testImplementation 'io.micronaut:micronaut-http-client'
+    testImplementation 'org.assertj:assertj-core:3.27.3'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
 }
 
 application {
-    mainClass = serverMainClass
+    mainClass = 'hu.webarticum.miniconnect.phantomapi.app.Application'
 }
 
 java {
     sourceCompatibility = JavaVersion.VERSION_17
     targetCompatibility = JavaVersion.VERSION_17
+}
+
+graalvmNative.toolchainDetection = false
+
+micronaut {
+    runtime('netty')
+    testRuntime('junit5')
+    processing {
+        incremental(true)
+        annotations('hu.webarticum.miniconnect.phantomapi.app.*')
+    }
+    aot {
+        optimizeServiceLoading = false
+        convertYamlToJava = false
+        precomputeOperations = true
+        cacheEnvironment = true
+        optimizeClassLoading = true
+        deduceEnvironment = true
+        optimizeNetty = true
+        replaceLogbackXml = true
+    }
+}
+
+tasks.named('dockerfileNative') {
+    jdkVersion = '17'
 }
