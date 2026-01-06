@@ -1,0 +1,80 @@
+openapi* =  string
+
+info*.
+    title* = string
+    summary = string
+    description = string
+    termsOfService = string
+    contact.
+        name = string
+        url = string
+        email = string
+    license.
+        name* = string
+        identifier = string
+        url = string
+    version* = string
+
+jsonSchemaDialect = string
+
+servers[].
+    url* = string
+    description = string
+    variables.
+        {variableName}.
+            enum = [string]
+            default* = string
+            description = string
+
+paths.
+    {pathPattern}:PathItem.
+        $ref = string
+        summary = string
+        description = string
+        get = Operation
+        put = Operation
+        post = Operation
+        delete = Operation
+        options = Operation
+        head = Operation
+        patch = Operation
+        trace = Operation
+        servers = [Server]
+        parameters = [Parameter|Reference]
+
+webhooks.
+    {webhookName} = [PathItem|Reference]
+
+components.
+    schemas.
+        {name} = SchemaObject
+    responses.
+        {name} = ResponseObject|ReferenceObject
+    parameters.
+        {name} = ParameterObject|ReferenceObject
+    examples.
+        {name} = ExampleObject|ReferenceObject
+    requestBodies.
+        {name} = RequestBodyObject|ReferenceObject
+    headers.
+        {name} = HeaderObject|ReferenceObject
+    securitySchemes.
+        {name} = SecuritySchemeObject|ReferenceObject
+    links.
+        {name} = LinkObject|ReferenceObject
+    callbacks.
+        {name} = CallbackObject|ReferenceObject
+    pathItems.
+        {name} = PathItemObject|ReferenceObject
+
+security[].
+    {securitySchemeNameRefKey} = [string]
+
+tags[].
+    name* = string
+    description = string
+    externalDocs = ExternalDocumentation
+
+externalDocs:ExternalDocumentation.
+    description = string
+    url* = string
