@@ -4,10 +4,21 @@ micronaut:
   serialization:
     date-format: "yyyy-MM-dd'T'HH:mm:ss"
     time-zone: UTC
+  server:
+    port: 8343
+    cors:
+      enabled: true
+      configurations:
+        all:
+          allowedMethods: [GET, POST, PUT, PATCH, DELETE, OPTIONS, HEAD]
+          allowedHeaders: ["*"]
 netty:
   default:
     allocator:
       max-order: 3
+phantomapi:
+  openapi:
+    descriptionPath: ${OPENAPI_DESCRIPTION_PATH:}
 #datasources:
 #  default:
 #    url: "${JDBC_URL:}"

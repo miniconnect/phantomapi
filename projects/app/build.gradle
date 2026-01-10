@@ -2,6 +2,7 @@ plugins {
     id 'io.micronaut.application' version "4.5.4"
     id 'com.gradleup.shadow' version "8.3.7"
     id 'io.micronaut.aot' version "4.5.4"
+    id 'com.google.cloud.tools.jib' version '3.5.2'
 }
 
 description = "PhantomAPI server"
@@ -35,6 +36,8 @@ dependencies {
     testImplementation 'io.micronaut:micronaut-http-client'
     testImplementation 'org.assertj:assertj-core:3.27.3'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+
+    implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.19.2'
 }
 
 application {
@@ -47,6 +50,15 @@ java {
 }
 
 graalvmNative.toolchainDetection = false
+
+jib {
+    to {
+        image = "miniconnect/phantomapi:${project.version}"
+    }
+    container {
+        ports = ["8343"]
+    }
+}
 
 micronaut {
     runtime('netty')

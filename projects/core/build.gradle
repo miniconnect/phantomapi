@@ -5,10 +5,9 @@ plugins {
 description = 'Core parts of PhantomAPI'
 
 dependencies {
+    implementation "hu.webarticum.miniconnect.api:lang:${miniConnectApiVersion}"
     implementation 'com.fasterxml.jackson.core:jackson-core:2.19.2'
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.19.2'
-    implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.19.2'
-    implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.19.2'
     implementation 'io.apicurio:apicurio-data-models:2.2.9'
 }
 
