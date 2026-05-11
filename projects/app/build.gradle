@@ -20,7 +20,7 @@ dependencies {
     annotationProcessor 'io.micronaut:micronaut-http-validation'
     annotationProcessor 'io.micronaut.serde:micronaut-serde-processor'
 
-    implementation 'hu.webarticum.holodb:jpa-annotations:0.7.2-SNAPSHOT'
+    implementation 'hu.webarticum.holodb:jpa-annotations:0.9.0'
 
     implementation project(':core')
     implementation 'io.micronaut.serde:micronaut-serde-jackson'
