@@ -1,7 +1,7 @@
 plugins {
     id 'io.micronaut.application' version '4.6.2'
     id 'io.micronaut.aot' version '4.6.2'
-    id 'com.gradleup.shadow' version '8.3.7'
+    id 'com.gradleup.shadow' version '9.4.1'
     id 'com.google.cloud.tools.jib' version '3.5.3'
 }
 
@@ -37,7 +37,7 @@ dependencies {
     testImplementation 'org.assertj:assertj-core:3.27.7'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
 
-    implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.21.1'
+    implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.21.3'
 }
 
 application {
@@ -61,7 +61,7 @@ jib {
 }
 
 micronaut {
-    version('4.10.9')
+    version('4.10.13')
     runtime('netty')
     testRuntime('junit5')
     processing {
